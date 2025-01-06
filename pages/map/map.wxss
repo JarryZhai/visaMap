@@ -1,0 +1,137 @@
+/* 滚动容器 */
+.scroll-container {
+  height: 100vh;
+  overflow: auto;
+  background-color: #f0f0f5; /* 浅灰蓝背景，增加层次感 */
+}
+
+/* 每个大洲信息区域 */
+.continent-section {
+  margin-bottom: 30rpx;
+  padding: 15rpx;
+  background-color: #ffffff; /* 白色背景 */
+  border-radius: 12rpx; /* 圆角更加精致 */
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.08); /* 更柔和的阴影效果 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10rpx 16rpx; /* 更紧凑的外边距 */
+}
+
+/* 大洲名称 */
+.continent-name {
+  font-size: 34rpx;
+  font-weight: 700; /* 较粗字体 */
+  color: #34495e; /* 深蓝灰色，优雅耐看 */
+  margin-bottom: 15rpx;
+  text-align: left;
+  width: 100%;
+}
+
+/* 地图背景 */
+.map-background {
+  width: 100%;
+  height: 160rpx; /* 优化高度，避免喧宾夺主 */
+  background-size: cover;
+  background-position: center;
+  border-radius: 10rpx;
+  margin-bottom: 15rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.05); /* 边框更柔和 */
+}
+
+/* 国家按钮区域 */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* 左对齐让排列更自然 */
+  gap: 10rpx; /* 使用 gap 增加按钮间距 */
+  margin-top: 5rpx;
+}
+
+/* 单个国家按钮 */
+.country-button {
+  width: 23%; 
+  padding: 10rpx 0;
+  text-align: center;
+  border: none;
+  border-radius: 10rpx; 
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 免签国家按钮的颜色 */
+.country-button.visa-free {
+  background: linear-gradient(45deg, #f4a261, #e76f51); /* 优雅渐变色 */
+  color: #ffffff;
+}
+
+/* 需签证国家按钮的颜色 */
+.country-button.visa-required {
+  background: linear-gradient(45deg, #f8c7a5, #f7a4b3); /* 温暖橙色渐变 */
+  color: #ffffff;
+}
+
+/* 免签和需签证状态下的按钮悬停效果 */
+.country-button:hover {
+  transform: translateY(-3rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 中文国家名 */
+.country-chinese {
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* 英文国家名 */
+.country-english {
+  font-size: 18rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 签证类型切换按钮 */
+.toggle-button {
+  width: 100%;
+  padding: 8rpx 0;
+  background-color: #fadd6b;
+  color: #333333;
+  text-align: center;
+  border-radius: 20rpx;
+  font-size: 18rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+/* 默认状态（收起） */
+.toggle-button::before {
+  content: "▼"; /* 向下三角符号 */
+  font-size: 16rpx;
+  color: #333333; /* 与文字保持一致 */
+  position: absolute;
+  left: 20rpx; /* 三角符号的位置 */
+  top: 50%;
+  transform: translateY(-50%); /* 垂直居中 */
+  transition: transform 0.3s ease; /* 添加动画效果 */
+}
+
+/* 悬停效果 */
+.toggle-button:hover {
+  background-color: #ffcc29; /* 悬停时颜色稍深 */
+  transform: scale(1.02); /* 悬停时放大 */
+  box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, 0.12); /* 阴影稍增强 */
+}
+
+/* 签证信息容器 */
+.visa-section {
+  margin-top: 10rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx; /* 添加间距 */
+}
