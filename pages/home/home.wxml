@@ -1,2 +1,61 @@
-<!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
+<view class="container">
+  <!-- 顶部个人信息 -->
+  <view class="header">
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view>
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <button wx:if="{{userInfo.nickName === '游客'}}" bindtap="getUserProfile" class="auth-button">授权登录</button>
+      </view>
+    </view>
+    <view class="visa-count">
+      <text>已有签证 {{visas.length}} 个</text>
+    </view>
+  </view>
+
+  <!-- 签证卡片列表 -->
+  <view class="visa-list">
+    <block wx:for="{{visas}}" wx:key="id">
+      <view class="visa-card">
+        <!-- 左上角：国家 + 签证类型 -->
+        <view class="card-top-left">
+          <text class="country">{{item.country}}</text>
+          <text class="visa-type">{{item.type}}</text>
+        </view>
+        <!-- 左下角：签证状态 -->
+        <view class="card-bottom-left">
+          <text class="{{item.isExpiring ? 'status-expiring' : 'status-valid'}}">
+            {{item.isExpiring ? '即将过期' : '有效'}}
+          </text>
+        </view>
+        <!-- 右上角：签发日期 -->
+        <view class="card-top-right">
+          <text class="label">签发日期</text>
+          <text class="value">{{item.issueDate}}</text>
+        </view>
+        <!-- 右下角：有效期 -->
+        <view class="card-bottom-right">
+          <text class="label">有效期</text>
+          <text class="value">{{item.validity}} 天</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 新增签证按钮 -->
+  <button class="add-visa-btn" bindtap="showAddVisaForm">+</button>
+
+  <!-- 新增签证表单 -->
+  <view wx:if="{{isFormVisible}}" class="modal">
+    <view class="form">
+      <input placeholder="国家" bindinput="handleInput" data-field="country" />
+      <input placeholder="签发日期 (YYYY-MM-DD)" bindinput="handleInput" data-field="issueDate" />
+      <input placeholder="有效期 (天)" type="number" bindinput="handleInput" data-field="validity" />
+      <input placeholder="签证类型" bindinput="handleInput" data-field="type" />
+    </view>
+    <view class="form-buttons">
+      <button type="primary" bindtap="submitVisa">确定</button>
+      <button bindtap="hideAddVisaForm">取消</button>
+    </view>
+  </view>
+</view>

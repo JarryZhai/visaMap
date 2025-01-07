@@ -28,5 +28,10 @@
         "text": "我的签证"
       }
     ]
+  },
+  "permission": {
+    "scope.userInfo": {
+      "desc": "用于获取用户的头像和昵称等信息"
+    }
   }
 }
