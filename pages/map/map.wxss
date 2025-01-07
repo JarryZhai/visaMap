@@ -2,28 +2,28 @@
 .scroll-container {
   height: 100vh;
   overflow: auto;
-  background-color: #f0f0f5; /* 浅灰蓝背景，增加层次感 */
+  background-color: #f5f5f5; /* 更柔和的浅灰色背景 */
 }
 
 /* 每个大洲信息区域 */
 .continent-section {
-  margin-bottom: 30rpx;
-  padding: 15rpx;
-  background-color: #ffffff; /* 白色背景 */
-  border-radius: 12rpx; /* 圆角更加精致 */
-  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.08); /* 更柔和的阴影效果 */
+  margin-bottom: 20rpx; /* 增加空白间距 */
+  padding: 18rpx;
+  background-color: #ffffff;
+  border-radius: 12rpx;
+  box-shadow: 0 6rpx 12rpx rgba(0, 0, 0, 0.1); /* 轻微的阴影提升层次感 */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 10rpx 16rpx; /* 更紧凑的外边距 */
+  margin: 12rpx 18rpx; /* 外边距更均衡 */
 }
 
 /* 大洲名称 */
 .continent-name {
-  font-size: 34rpx;
-  font-weight: 700; /* 较粗字体 */
-  color: #34495e; /* 深蓝灰色，优雅耐看 */
-  margin-bottom: 15rpx;
+  font-size: 36rpx; /* 更大的字体让标题更醒目 */
+  font-weight: 600; /* 中等粗细的字体，提升阅读体验 */
+  color: #2c3e50; /* 深蓝灰色，优雅而有深度 */
+  margin-bottom: 18rpx;
   text-align: left;
   width: 100%;
 }
@@ -31,32 +31,32 @@
 /* 地图背景 */
 .map-background {
   width: 100%;
-  height: 160rpx; /* 优化高度，避免喧宾夺主 */
+  height: 180rpx; /* 稍微增加高度让地图更突出 */
   background-size: cover;
   background-position: center;
-  border-radius: 10rpx;
-  margin-bottom: 15rpx;
-  border: 1rpx solid rgba(0, 0, 0, 0.05); /* 边框更柔和 */
+  border-radius: 12rpx;
+  margin-bottom: 18rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.1); /* 边框更加细腻 */
 }
 
 /* 国家按钮区域 */
 .button-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* 左对齐让排列更自然 */
-  gap: 10rpx; /* 使用 gap 增加按钮间距 */
-  margin-top: 5rpx;
+  justify-content: flex-start;
+  gap: 12rpx; /* 使用更大的间距让按钮更整齐 */
+  margin-top: 8rpx;
 }
 
 /* 单个国家按钮 */
 .country-button {
-  width: 23%; 
-  padding: 10rpx 0;
+  width: 22%; /* 适当缩小按钮宽度以增加排列的密集感 */
+  padding: 12rpx 0;
   text-align: center;
   border: none;
-  border-radius: 10rpx; 
-  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1); 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12rpx; 
+  box-shadow: 0 3rpx 8rpx rgba(0, 0, 0, 0.1); /* 轻微的阴影提升按钮的立体感 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,73 +65,132 @@
 
 /* 免签国家按钮的颜色 */
 .country-button.visa-free {
-  background: linear-gradient(45deg, #f4a261, #e76f51); /* 优雅渐变色 */
+  background: linear-gradient(45deg, #f39c12, #f1c40f); /* 亮眼的金色渐变，保持高级感 */
   color: #ffffff;
 }
 
 /* 需签证国家按钮的颜色 */
 .country-button.visa-required {
-  background: linear-gradient(45deg, #f8c7a5, #f7a4b3); /* 温暖橙色渐变 */
+  background: linear-gradient(45deg, #e74c3c, #c0392b); /* 深红色渐变，吸引注意力 */
   color: #ffffff;
 }
 
 /* 免签和需签证状态下的按钮悬停效果 */
 .country-button:hover {
-  transform: translateY(-3rpx);
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  transform: translateY(-4rpx); /* 更平滑的提升效果 */
+  box-shadow: 0 6rpx 15rpx rgba(0, 0, 0, 0.15); /* 更强烈的阴影效果 */
 }
 
 /* 中文国家名 */
 .country-chinese {
-  font-size: 22rpx;
+  font-size: 24rpx; /* 稍微增大中文字体 */
   font-weight: 600;
   color: #ffffff;
 }
 
 /* 英文国家名 */
 .country-english {
-  font-size: 18rpx;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 20rpx; /* 稍微增大英文字体 */
+  color: rgba(255, 255, 255, 0.85); /* 使英文更加淡雅 */
 }
 
 /* 签证类型切换按钮 */
 .toggle-button {
   width: 100%;
-  padding: 8rpx 0;
-  background-color: #fadd6b;
-  color: #333333;
+  padding: 10rpx 0;
+  background-color: #ffca3a; /* 明亮的黄色调，吸引眼球 */
+  color: #2c3e50;
   text-align: center;
   border-radius: 20rpx;
-  font-size: 18rpx;
-  margin-bottom: 10rpx;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  font-size: 20rpx;
+  margin-bottom: 12rpx;
+  box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 /* 默认状态（收起） */
 .toggle-button::before {
   content: "▼"; /* 向下三角符号 */
-  font-size: 16rpx;
-  color: #333333; /* 与文字保持一致 */
+  font-size: 18rpx;
+  color: #2c3e50; /* 与文字保持一致 */
   position: absolute;
-  left: 20rpx; /* 三角符号的位置 */
+  left: 20rpx;
   top: 50%;
-  transform: translateY(-50%); /* 垂直居中 */
-  transition: transform 0.3s ease; /* 添加动画效果 */
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
 }
 
 /* 悬停效果 */
 .toggle-button:hover {
-  background-color: #ffcc29; /* 悬停时颜色稍深 */
-  transform: scale(1.02); /* 悬停时放大 */
-  box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, 0.12); /* 阴影稍增强 */
+  background-color: #f39c12; /* 悬停时颜色变亮 */
+  transform: scale(1.03); /* 悬停时轻微放大 */
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.12); /* 阴影加强 */
 }
 
 /* 签证信息容器 */
 .visa-section {
-  margin-top: 10rpx;
+  margin-top: 12rpx;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8rpx; /* 添加间距 */
+  gap: 10rpx; /* 增加间距 */
+}
+
+/* 弹窗样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 35%;
+  left: 15%;
+  right: 15%;
+  background-color: #ffffff;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.12);
+}
+
+.status-buttons button {
+  margin: 8rpx;
+  padding: 10rpx 20rpx;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 16rpx;
+  border-radius: 8rpx;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 按钮悬停效果 */
+.status-buttons button:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.12);
+}
+
+.status-buttons button:active {
+  transform: translateY(2rpx); /* 按钮点击时的反馈效果 */
+}
+
+/* 统计数据展示 */
+.statistics {
+  background-color: #fff;
+  padding: 16rpx;
+  margin: 10rpx 0;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.statistics text {
+  font-size: 18rpx;
+  color: #34495e;
+  display: block;
+  margin-bottom: 6rpx;
 }

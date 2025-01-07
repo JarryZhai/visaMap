@@ -173,7 +173,7 @@
   height: 100rpx;
   background-color: #007aff;
   color: #fff;
-  font-size: 30rpx;
+  font-size: 40rpx;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -201,35 +201,33 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  padding: 30rpx; /* 增加内边距 */
-  border-radius: 12rpx;
+  padding: 20rpx; /* 增加内边距 */
+  border-radius: 15rpx;
   box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.2);
   z-index: 101; /* 弹窗层级比蒙层高 */
   width: 90%; /* 增大弹窗宽度 */
-  max-width: 600rpx; /* 最大宽度 */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20rpx; /* 增加表单项间距 */
+  gap: 60rpx; /* 增加表单项间距 */
 }
 
 /* 每个输入项的标题 */
 .form-item-title {
-  font-size: 18rpx;
+  font-size: 28rpx;
   color: #333;
   font-weight: bold;
-  margin-bottom: 6rpx;
 }
 
 /* 输入框样式 */
 input, .picker-input {
-  font-size: 16rpx;
-  padding: 12rpx;
+  font-size: 25rpx;
+  padding: 10rpx;
   border: 1rpx solid #ddd;
   border-radius: 8rpx;
   background-color: #f9f9f9;
   color: #333;
-  width: 100%;
+  width: 95%;
 }
 
 /* 提示文本 */
@@ -241,15 +239,14 @@ input::placeholder, .picker-input::placeholder {
 .form-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 12rpx; /* 更大的按钮间距 */
+  gap: 102rpx; /* 更大的按钮间距 */
 }
 
 /* 按钮样式 */
 .form-button-primary, .form-button-secondary {
-  padding: 14rpx 28rpx; /* 更舒展的按钮 */
   font-size: 30rpx;
   border-radius: 20rpx;
-  width: 48%;
+  width: 20%;
 }
 
 /* 确定按钮 */

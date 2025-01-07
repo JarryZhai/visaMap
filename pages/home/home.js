@@ -46,10 +46,49 @@ Page({
     });
   },
 
-  // 获取签证列表
+  // 获取签证列表并处理签证状态
   fetchVisas() {
     const visas = wx.getStorageSync('visas') || [];
+    visas.forEach(visa => {
+      // 计算签证状态
+      const status = this.getVisaStatusText(visa.expiryDate);
+      const statusClass = this.getVisaStatusClass(visa.expiryDate);
+      visa.status = status;
+      visa.statusClass = statusClass;
+    });
     this.setData({ visas });
+  },
+
+  // 获取签证状态文本
+  getVisaStatusText(expiryDate) {
+    const currentDate = new Date();
+    const expiryDateObj = new Date(expiryDate);
+    const threeMonthsLater = new Date(currentDate);
+    threeMonthsLater.setMonth(currentDate.getMonth() + 3);
+
+    if (expiryDateObj < currentDate) {
+      return '过期';
+    } else if (expiryDateObj <= threeMonthsLater) {
+      return '即将过期';
+    } else {
+      return '有效';
+    }
+  },
+
+  // 获取签证状态的CSS类
+  getVisaStatusClass(expiryDate) {
+    const currentDate = new Date();
+    const expiryDateObj = new Date(expiryDate);
+    const threeMonthsLater = new Date(currentDate);
+    threeMonthsLater.setMonth(currentDate.getMonth() + 3);
+
+    if (expiryDateObj < currentDate) {
+      return 'status-expiring';  // 过期
+    } else if (expiryDateObj <= threeMonthsLater) {
+      return 'status-expiring';  // 即将过期
+    } else {
+      return 'status-valid';  // 有效
+    }
   },
 
   // 显示新增签证表单
@@ -102,6 +141,11 @@ Page({
     const { visas } = this.data;
     // 为新签证生成唯一 ID
     const newVisaWithId = { ...newVisa, id: visas.length };
+    // 计算新签证的状态
+    const status = this.getVisaStatusText(newVisa.expiryDate);
+    const statusClass = this.getVisaStatusClass(newVisa.expiryDate);
+    newVisaWithId.status = status;
+    newVisaWithId.statusClass = statusClass;
     visas.push(newVisaWithId);
     wx.setStorageSync('visas', visas);
     this.fetchVisas();

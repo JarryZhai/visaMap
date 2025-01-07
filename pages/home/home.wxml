@@ -19,23 +19,23 @@
       <view class="visa-card" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" data-index="{{index}}">
         <!-- 左上角：国家 + 签证类型 -->
         <view class="card-top-left">
-          <text class="country">{{item.country}}</text>
-          <text class="visa-type">{{item.type}}</text>
+          <text class="country">{{item.country}} </text>
+          <text class="visa-type">{{item.type}}签证</text>
         </view>
         <!-- 左下角：签证状态 -->
         <view class="card-bottom-left">
-          <text class="{{item.isExpiring ? 'status-expiring' : 'status-valid'}}">
-            {{item.isExpiring ? '即将过期' : '有效'}}
+          <text class="{{item.statusClass}}">
+            {{item.status}}
           </text>
         </view>
         <!-- 右上角：签发日期 -->
         <view class="card-top-right">
-          <text class="label">签发日期</text>
+          <text class="label">签发日期：</text>
           <text class="value">{{item.issueDate}}</text>
         </view>
         <!-- 右下角：失效日期 -->
         <view class="card-bottom-right">
-          <text class="label">失效日期</text>
+          <text class="label">失效日期：</text>
           <text class="value">{{item.expiryDate}}</text>
         </view>
         <!-- 删除按钮 -->

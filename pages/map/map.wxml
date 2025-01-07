@@ -1,4 +1,10 @@
 <scroll-view class="scroll-container" scroll-y>
+  <view class="statistics">
+    <text>世界地图解锁率: {{statistics.unlockRate}}%</text>
+    <text>世界地图到达率: {{statistics.reachRate}}%</text>
+    <text>计划中的远方: {{statistics.wantToGo}} 个</text>
+  </view>
+
   <block wx:for="{{continents}}" wx:key="name">
     <view class="continent-section">
       <!-- 大洲名称 -->
@@ -16,7 +22,7 @@
         </button>
         <view wx:if="{{item.visaFreeExpanded}}" class="button-container">
           <block wx:for="{{item.visaFree}}" wx:key="name">
-            <view class="country-button visa-free">
+            <view class="country-button visa-free" bindtap="showCountryModal" data-country="{{item}}">
               <text class="country-chinese">{{item.chinese}}</text>
               <text class="country-english">{{item.english}}</text>
             </view>
@@ -34,13 +40,33 @@
         </button>
         <view wx:if="{{item.visaRequiredExpanded}}" class="button-container">
           <block wx:for="{{item.visaRequired}}" wx:key="name">
-            <view class="country-button {{item.visa ? 'visa-free' : 'visa-required'}}">
+            <view class="country-button visa-free" bindtap="showCountryModal" data-country="{{item}}">
               <text class="country-chinese">{{item.chinese}}</text>
               <text class="country-english">{{item.english}}</text>
             </view>
+
           </block>
         </view>
       </view>
     </view>
   </block>
 </scroll-view>
+
+<!-- 弹窗部分 -->
+<view wx:if="{{showCountryModal}}" class="modal-overlay" bindtap="closeCountryModal"></view>
+<view wx:if="{{showCountryModal}}" class="modal">
+  <view class="country-status">
+    <text>{{currentCountry.chinese}} ({{currentCountry.english}})</text>
+    <view class="status-buttons">
+      <button bindtap="updateCountryStatus" data-status="want2go">
+        {{currentCountry.want2go ? '取消想去' : '标记想去'}}
+      </button>
+      <button bindtap="updateCountryStatus" data-status="beenHere">
+        {{currentCountry.beenHere ? '取消去过' : '标记去过'}}
+      </button>
+      <button bindtap="updateCountryStatus" data-status="visa">
+        {{currentCountry.visa ? '取消有签证' : '标记有签证'}}
+      </button>
+    </view>
+  </view>
+</view>
