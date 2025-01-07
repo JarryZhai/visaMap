@@ -16,7 +16,7 @@
   <!-- 签证卡片列表 -->
   <view class="visa-list">
     <block wx:for="{{visas}}" wx:key="id">
-      <view class="visa-card">
+      <view class="visa-card" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" data-index="{{index}}">
         <!-- 左上角：国家 + 签证类型 -->
         <view class="card-top-left">
           <text class="country">{{item.country}}</text>
@@ -33,10 +33,14 @@
           <text class="label">签发日期</text>
           <text class="value">{{item.issueDate}}</text>
         </view>
-        <!-- 右下角：有效期 -->
+        <!-- 右下角：失效日期 -->
         <view class="card-bottom-right">
-          <text class="label">有效期</text>
-          <text class="value">{{item.validity}} 天</text>
+          <text class="label">失效日期</text>
+          <text class="value">{{item.expiryDate}}</text>
+        </view>
+        <!-- 删除按钮 -->
+        <view wx:if="{{item.showDelete}}" class="delete-btn" data-id="{{item.id}}" bindtap="deleteVisa">
+          删除
         </view>
       </view>
     </block>
@@ -46,16 +50,37 @@
   <button class="add-visa-btn" bindtap="showAddVisaForm">+</button>
 
   <!-- 新增签证表单 -->
+  <view wx:if="{{isFormVisible}}" class="modal-overlay" bindtap="hideAddVisaForm"></view>
   <view wx:if="{{isFormVisible}}" class="modal">
     <view class="form">
-      <input placeholder="国家" bindinput="handleInput" data-field="country" />
-      <input placeholder="签发日期 (YYYY-MM-DD)" bindinput="handleInput" data-field="issueDate" />
-      <input placeholder="有效期 (天)" type="number" bindinput="handleInput" data-field="validity" />
-      <input placeholder="签证类型" bindinput="handleInput" data-field="type" />
+      <view class="form-item">
+        <text class="form-item-title">国家</text>
+        <input placeholder="请输入国家" bindinput="handleInput" data-field="country" />
+      </view>
+      <view class="form-item">
+        <text class="form-item-title">签发日期</text>
+        <picker mode="date" value="{{newVisa.issueDate}}" start="1900-01-01" end="2100-12-31" bindchange="handleDateChange" data-field="issueDate">
+          <view class="picker-input">
+            <text>签发日期：{{newVisa.issueDate}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="form-item-title">失效日期</text>
+        <picker mode="date" value="{{newVisa.expiryDate}}" start="1900-01-01" end="2100-12-31" bindchange="handleDateChange" data-field="expiryDate">
+          <view class="picker-input">
+            <text>失效日期：{{newVisa.expiryDate}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="form-item-title">签证类型</text>
+        <input placeholder="请输入签证类型" bindinput="handleInput" data-field="type" />
+      </view>
     </view>
     <view class="form-buttons">
-      <button type="primary" bindtap="submitVisa">确定</button>
-      <button bindtap="hideAddVisaForm">取消</button>
+      <button class="form-button-primary" bindtap="submitVisa">确定</button>
+      <button class="form-button-secondary" bindtap="hideAddVisaForm">取消</button>
     </view>
   </view>
 </view>

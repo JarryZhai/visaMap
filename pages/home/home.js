@@ -8,10 +8,13 @@ Page({
     isFormVisible: false, // 是否显示新增表单
     newVisa: {
       country: '',
-      issueDate: '',
-      validity: 0,
+      issueDate: '2025-01-01',  // 默认签发日期
+      expiryDate: '2025-12-31', // 默认时效日期
       type: '',
     },
+    touchStartX: 0, // 记录触摸开始的X坐标
+    touchMoveX: 0, // 记录滑动过程中的X坐标
+    activeIndex: null, // 当前处于活动状态的签证卡片索引
   },
 
   // 页面加载时
@@ -26,18 +29,16 @@ Page({
     wx.getSetting({
       success(res) {
         if (res.authSetting['scope.userInfo']) {
-          // 已授权，直接获取用户信息
           wx.getUserInfo({
             success: (res) => {
               that.setData({ userInfo: res.userInfo });
             },
           });
         } else {
-          // 未授权，显示默认头像和提示
           that.setData({
             userInfo: {
-              avatarUrl: '/assets/default-avatar.png', // 默认头像
-              nickName: '游客',                       // 默认昵称
+              avatarUrl: '/assets/default-avatar.png',
+              nickName: '游客',
             },
           });
         }
@@ -45,48 +46,10 @@ Page({
     });
   },
 
-  // 用户点击获取头像和昵称按钮
-  getUserProfile(descText) {
-    const defaultDesc = '用于完善个人信息';
-    const actualDesc = descText || defaultDesc;
-    wx.getUserProfile({
-        desc: actualDesc, // 获取授权时的说明，可传入自定义描述，不传则用默认
-        success: (res) => {
-            this.setData({ userInfo: res.userInfo });
-            wx.showToast({ title: '授权成功', icon: 'success' });
-        },
-        fail: () => {
-            wx.showToast({ title: '授权失败', icon: 'none' });
-        },
-    });
-  },
-
-  // 获取签证列表（从本地存储）
+  // 获取签证列表
   fetchVisas() {
     const visas = wx.getStorageSync('visas') || [];
-    const now = new Date();
-    const processedVisas = visas.map((visa) => {
-      const issueDate = new Date(visa.issueDate);
-      const expiryDate = new Date(issueDate);
-      expiryDate.setDate(expiryDate.getDate() + parseInt(visa.validity, 10));
-      return {
-        ...visa,
-        isExpiring: (expiryDate - now) / (1000 * 60 * 60 * 24) <= 30, // 判断是否即将过期
-      };
-    });
-    this.setData({ visas: processedVisas });
-  },
-
-  // 计算签证到期日期并判断是否即将过期
-  processVisaDate(visa) {
-    const now = new Date();
-    const issueDate = new Date(visa.issueDate);
-    const expiryDate = new Date(issueDate);
-    expiryDate.setDate(expiryDate.getDate() + parseInt(visa.validity, 10));
-    return {
-      ...visa,
-        isExpiring: (expiryDate - now) / (1000 * 60 * 60 * 24) <= 30, // 判断是否即将过期
-    };
+    this.setData({ visas });
   },
 
   // 显示新增签证表单
@@ -98,7 +61,16 @@ Page({
   hideAddVisaForm() {
     this.setData({
       isFormVisible: false,
-      newVisa: { country: '', issueDate: '', validity: 0, type: '' },
+      newVisa: { country: '', issueDate: '2025-01-01', expiryDate: '2025-12-31', type: '' },
+    });
+  },
+
+  // 处理日期选择
+  handleDateChange(e) {
+    const { field } = e.currentTarget.dataset;
+    const value = e.detail.value;
+    this.setData({
+      newVisa: { ...this.data.newVisa, [field]: value }
     });
   },
 
@@ -113,7 +85,7 @@ Page({
   // 提交签证信息
   submitVisa() {
     const { newVisa } = this.data;
-    const requiredFields = ['country', 'issueDate', 'validity', 'type'];
+    const requiredFields = ['country', 'issueDate', 'expiryDate', 'type'];
     const missingFields = [];
     requiredFields.forEach(field => {
         if (!newVisa[field]) {
@@ -128,10 +100,67 @@ Page({
         return;
     }
     const { visas } = this.data;
-    visas.push(newVisa);
+    // 为新签证生成唯一 ID
+    const newVisaWithId = { ...newVisa, id: visas.length };
+    visas.push(newVisaWithId);
     wx.setStorageSync('visas', visas);
     this.fetchVisas();
     this.hideAddVisaForm();
     wx.showToast({ title: '签证新增成功' });
   },
+
+  // 删除签证
+  deleteVisa(e) {
+    const id = e.currentTarget.dataset.id;
+    const visas = this.data.visas.filter(visa => visa.id !== id);
+    wx.setStorageSync('visas', visas);
+    this.setData({ visas });
+    wx.showToast({ title: '签证已删除' });
+  },
+
+  // 触摸事件开始时记录触摸起始位置
+  touchStart: function (e) {
+    this.setData({
+      touchStartX: e.changedTouches[0].clientX
+    });
+  },
+
+  // 触摸事件滑动时记录滑动的X坐标
+  touchMove: function (e) {
+    this.setData({
+      touchMoveX: e.changedTouches[0].clientX
+    });
+  },
+
+  // 触摸事件结束时判断是否为左滑
+  touchEnd: function (e) {
+    const { touchStartX, touchMoveX } = this.data;
+    const threshold = 100; // 设置触发删除的滑动距离
+    if (touchStartX - touchMoveX > threshold) {
+      const index = e.currentTarget.dataset.index;
+      const visas = this.data.visas;
+      visas[index].showDelete = true; // 显示删除按钮
+      this.setData({
+        visas: visas,
+        activeIndex: index // 设置当前活动的签证卡片索引
+      });
+    } else if (touchMoveX - touchStartX > threshold) {
+      const index = e.currentTarget.dataset.index;
+      const visas = this.data.visas;
+      visas[index].showDelete = false; // 隐藏删除按钮
+      this.setData({
+        visas: visas
+      });
+    }
+  },
+
+  // 隐藏删除按钮（用于恢复状态）
+  hideDelete: function (e) {
+    const index = e.currentTarget.dataset.index;
+    const visas = this.data.visas;
+    visas[index].showDelete = false; // 隐藏删除按钮
+    this.setData({
+      visas: visas
+    });
+  }
 });

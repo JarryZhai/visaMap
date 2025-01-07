@@ -1,11 +1,12 @@
 /* 页面整体布局 */
 .container {
   padding: 20px;
-  background-color: #f5f5f5; /* 浅灰背景 */
+  background-color: #f8f8f8; /* 浅灰背景，稍微柔和 */
   min-height: 100vh; /* 确保背景填充整个页面 */
   box-sizing: border-box;
   display: flex;
   flex-direction: column; /* 保持页面整体从上到下的布局 */
+  color: #333; /* 设置默认字体颜色 */
 }
 
 /* 顶部个人信息区域 */
@@ -13,50 +14,69 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 20rpx;
+  background-color: #ffffff; /* 纯白色 */
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05); /* 微弱阴影 */
+  width: 100%;
+  border-radius: 10px;
 }
+
+/* 用户信息区 */
 .user-info {
   display: flex;
   align-items: center;
+  gap: 12rpx;
 }
+
+/* 用户头像 */
 .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; /* 圆形头像 */
-  margin-right: 10px;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd; /* 头像加边框 */
 }
+
+/* 昵称 */
 .nickname {
-  font-size: 16px;
+  font-size: 30rpx;
   font-weight: bold;
   color: #333;
 }
+
+/* 授权登录按钮 */
 .auth-button {
-  margin-top: 5px;
-  font-size: 12px;
-  color: #007aff;
-  border: 1px solid #007aff;
-  padding: 2px 6px;
-  border-radius: 4px;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 10rpx 20rpx;
+  font-size: 26rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
 }
+
+/* 签证数量显示 */
 .visa-count {
-  font-size: 14px;
-  color: #666;
+  font-size: 26rpx;
+  color: #777; /* 更柔和的灰色 */
 }
 
 /* 签证卡片区域 */
 .visa-list {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* 卡片之间的间距 */
+  gap: 20px; /* 增加卡片之间的间距 */
   margin-top: 20px; /* 与顶部信息区域的间距 */
   flex-grow: 1; /* 卡片区域扩展填充剩余空间 */
   width: 100%;
 }
+
+/* 签证卡片 */
 .visa-card {
   position: relative;
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  border-radius: 12px;
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.08); /* 更柔和的阴影 */
   padding: 20px;
   box-sizing: border-box;
   display: grid;
@@ -65,70 +85,113 @@
     "bottom-left bottom-right";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 10px; /* 内部区域间距 */
+  gap: 12px;
+  overflow: hidden; /* 隐藏溢出的部分 */
+  transition: transform 0.3s ease; /* 动画过渡效果 */
 }
+
+/* 卡片内容区域 */
 .card-top-left {
   grid-area: top-left;
 }
+
 .card-top-right {
   grid-area: top-right;
   text-align: right; /* 内容右对齐 */
 }
+
 .card-bottom-left {
   grid-area: bottom-left;
 }
+
 .card-bottom-right {
   grid-area: bottom-right;
   text-align: right; /* 内容右对齐 */
 }
 
+/* 国家 */
 .country {
   font-size: 18px;
   font-weight: bold;
   color: #333;
 }
+
+/* 签证类型 */
 .visa-type {
   font-size: 14px;
-  color: #666;
+  color: #888;
   margin-top: 4px;
 }
+
+/* 状态标签 */
 .status-valid {
   font-size: 14px;
-  color: #4caf50; /* 绿色，表示有效 */
+  color: #4caf50; /* 绿色 */
   font-weight: bold;
 }
+
 .status-expiring {
   font-size: 14px;
-  color: #f44336; /* 红色，表示即将过期 */
+  color: #f44336; /* 红色 */
   font-weight: bold;
 }
+
+/* 信息标签 */
 .label {
   font-size: 12px;
-  color: #999;
+  color: #aaa;
 }
+
 .value {
   font-size: 14px;
   font-weight: bold;
   color: #333;
 }
 
-/* 悬浮按钮 */
-.add-visa-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #007aff;
-  color: #fff;
-  font-size: 30px;
-  border-radius: 50%; /* 圆形按钮 */
+/* 删除按钮 */
+.delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #f44336;
+  color: white;
+  width: 80rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 阴影效果 */
-  z-index: 100; /* 确保悬浮按钮在最上层 */
+  border-radius: 10px;
+  transition: transform 0.3s ease; /* 滑动动画 */
+}
+
+/* 悬浮按钮 */
+.add-visa-btn {
+  position: fixed;
+  right: 20rpx;
+  bottom: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #007aff;
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6rpx 12rpx rgba(0, 0, 0, 0.2); /* 更强阴影 */
+  z-index: 100;
   border: none;
+}
+
+/* 弹窗蒙层 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明黑色蒙层 */
+  z-index: 100; /* 确保蒙层在所有元素上方 */
 }
 
 /* 弹窗表单 */
@@ -138,21 +201,73 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 101;
-  width: 90%; /* 弹窗宽度 */
-  max-width: 400px; /* 限制最大宽度 */
+  padding: 30rpx; /* 增加内边距 */
+  border-radius: 12rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.2);
+  z-index: 101; /* 弹窗层级比蒙层高 */
+  width: 90%; /* 增大弹窗宽度 */
+  max-width: 600rpx; /* 最大宽度 */
   box-sizing: border-box;
-}
-.form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20rpx; /* 增加表单项间距 */
 }
+
+/* 每个输入项的标题 */
+.form-item-title {
+  font-size: 18rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 6rpx;
+}
+
+/* 输入框样式 */
+input, .picker-input {
+  font-size: 16rpx;
+  padding: 12rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  background-color: #f9f9f9;
+  color: #333;
+  width: 100%;
+}
+
+/* 提示文本 */
+input::placeholder, .picker-input::placeholder {
+  color: #aaa; /* 提示文本颜色 */
+}
+
+/* 按钮区域 */
 .form-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  gap: 12rpx; /* 更大的按钮间距 */
+}
+
+/* 按钮样式 */
+.form-button-primary, .form-button-secondary {
+  padding: 14rpx 28rpx; /* 更舒展的按钮 */
+  font-size: 30rpx;
+  border-radius: 20rpx;
+  width: 48%;
+}
+
+/* 确定按钮 */
+.form-button-primary {
+  background-color: #007aff;
+  color: white;
+  border: none;
+}
+
+/* 取消按钮 */
+.form-button-secondary {
+  background-color: #f4f4f4;
+  color: #007aff;
+  border: none;
+}
+
+/* 弹窗外边框和阴影 */
+.modal {
+  border-radius: 16rpx; /* 更圆的边角 */
+  box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.15); /* 更柔和的阴影 */
 }
